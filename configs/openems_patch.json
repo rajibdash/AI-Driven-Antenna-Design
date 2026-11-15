@@ -1,0 +1,21 @@
+{
+  "patch_x_mm": 32.0,
+  "patch_y_mm": 40.0,
+  "feed_x_mm": -6.0,
+  "board_x_mm": 60.0,
+  "board_y_mm": 60.0,
+  "substrate_thickness_mm": 1.524,
+  "relative_permittivity": 3.38,
+  "loss_tangent_at_reference": 0.001,
+  "material_reference_hz": 2450000000.0,
+  "reference_impedance_ohm": 50.0,
+  "band_start_hz": 2400000000.0,
+  "band_stop_hz": 2500000000.0,
+  "s11_limit_db": -10.0,
+  "cells_per_wavelength": 20,
+  "substrate_cells": 4,
+  "max_timesteps": 30000,
+  "end_criteria": 0.000001,
+  "timeout_seconds": 600,
+  "threads": 1
+}
