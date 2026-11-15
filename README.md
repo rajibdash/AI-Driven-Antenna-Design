@@ -3,8 +3,9 @@
 A software designer's guide to translating antenna requirements into reproducible electromagnetic (EM) simulations, optimization experiments, and evidence-backed hardware proposals.
 Again, as next step here we can think about **AI-Driven RF Production Test Intelligence** which will explore how AI and machine learning can transform large-scale RF production test 
 data into an actionable engineering insights. By correlating RF performance metrics with more factors, it aims to detect anomalies, support RCA, flag quality risks, and identify 
-opportunities to optimize test coverage and time - helping software engineers to resolve issues faster and get higher quality products to market. A lot of research works were already 
-conducted in different ways for this approach and plenty of good quality of materials are already available to understand, learn and apply for further advanced approach. 
+opportunities to optimize test coverage and time - helping software engineers to resolve issues faster and get higher quality products. A lot of research works were already 
+conducted in different ways for this approach and plenty of good quality of materials are already available to understand, learn and apply for further advanced approach to improve the 
+quality of product. 
 
 ## Additional thoughts with this guide !!!
 There are more possible areas of investigation include, but are not limited to below: 
@@ -46,7 +47,7 @@ determine the appropriate design.
 
 The sources above establish narrower capabilities, not a complete autonomous product. Do not equate evolutionary algorithms, Bayesian optimization, surrogate ML, and LLM agents: they solve different parts of the problem.
 
-## 2. How an agent should interpret requirements
+## 2. How an AI agent should interpret requirements in general? - Suppose we need good RF design consideration as choice. How it would be guareented from requirements?
 
 Treat interpretation as **compiling a human specification into a typed engineering contract**, not generating geometry immediately.
 
@@ -57,7 +58,8 @@ Treat interpretation as **compiling a human specification into a typed engineeri
 5. **Choose a bounded design family.** Recommend a patch, wire, monopole, or array only with a documented rationale. Restrict the initial search to a parameterized, reviewed template. Analytical formulas provide starting estimates, not certified final dimensions.
 6. **Obtain approval.** Have an RF engineer approve the normalized specification, assumptions, verification rules, and compute budget before an optimization campaign.
 
-An agent should retrieve information from approved solver documentation, material datasheets, and engineering references, retaining the exact source revision. Retrieval and structured output reduce some failure modes; neither guarantees factual correctness. A schema-valid configuration can still describe bad physics.
+An agent should retrieve information from approved solver documentation, material datasheets, and engineering references, retaining the exact source revision. 
+Retrieval and structured output reduce some failure modes; neither guarantees factual correctness. A schema-valid configuration can still describe bad physics.
 
 ### Example configuration contract
 
