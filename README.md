@@ -1,14 +1,16 @@
 # AI-Driven RF device and Antenna Design
 
 A software designer's guide to translating antenna requirements into reproducible electromagnetic (EM) simulations, optimization experiments, and evidence-backed hardware proposals.
-Again, as next step here we can think about **AI-Driven RF Production Test Intelligence** which will explore how AI and machine learning can transform large-scale RF production test 
-data into an actionable engineering insights. By correlating RF performance metrics with more factors, it aims to detect anomalies, support RCA, flag quality risks, and identify 
-opportunities to optimize test coverage and time - helping software engineers to resolve issues faster and get higher quality products. A lot of research works were already 
-conducted in different ways for this approach and plenty of good quality of materials are already available to understand, learn and apply for further advanced approach to improve the 
-quality of product. 
+Again, as next step here we can think about **AI-Driven RF Production Test Intelligence** which will explore how AI and machine learning(ML) can transform large-scale RF production test 
+dataset into an actionable engineering insights and multiple aspects of data-driven production intelligence. By correlating RF performance metrics with more factors, it aims to detect 
+anomalies, support RCA, flag quality risks, and identify opportunities to optimize test coverage and time - helping software engineers to resolve issues faster and get higher quality 
+products. A lot of research works were already conducted in different ways for this approach and plenty of good quality of materials are already available to understand, learn and apply 
+for further advanced approach to improve the quality of product. 
 
 ## Additional thoughts with this guide !!!
+
 There are more possible areas of investigation include, but are not limited to below: 
+
 * (1) A full Production Data Understanding and Feature Engineering Analyze **large-scale RF production test datasets**. Also, include __Hybrid beamforming (digital/analog/both) design__ related production test dataset.
 * (2) Identify key RF performance indicators(KPIs for good antenna design and combine/connect with Radio) and manufacturing parameters.
 * (3) Develop new methods or APIs for data cleansing, normalization, and feature extraction.
@@ -29,8 +31,8 @@ There are more possible areas of investigation include, but are not limited to b
 
 **Repository status:** This guide now includes an initial deterministic openEMS patch-study runner,
 configuration, and numerical-check tests (see section 4). It requires a separately installed native
-openEMS/CSXCAD stack. It is not an implemented agent, trained model, HFSS/Sionna integration, or
-hardware-validated antenna. Other architectures, project plans, and acceptance thresholds remain
+openEMS/CSXCAD stack. It is not an implemented agent, trained model, HFSS/Sionna RT integration, or
+hardware-validated antenna. Other architectures, project plans, and acceptance thresholds are remain
 proposals unless explicitly attributed to an external source.
 
 **Central principle:** An LLM can interpret a specification and coordinate tools; it cannot establish that an antenna works by describing it. Numerical performance needs qualified EM 
