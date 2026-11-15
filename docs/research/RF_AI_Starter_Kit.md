@@ -4,7 +4,7 @@ This starter kit provides a complete, runnable Python pipeline to generate elect
 
 Because you listed three distinct target architectures, this kit includes **ready-to-use parameterized geometry modules** for all three:
 1. **5G mmWave Patch Array** (`28 GHz`, Rogers RO4350B)
-2. **Sub-6 GHz 2x2 MIMO Antenna** (`3.5 GHz` n78 band, FR4)
+2. **Sub-6 GHz 2x2 MIMO Antenna** (`3.5 GHz` n78 band, ?FR4)
 3. **Microstrip Coupled-Line Bandpass Filter** (`2.45 GHz`, Rogers RO4003C)
 
 ---
