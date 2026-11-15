@@ -337,3 +337,63 @@ Start with the NASA report for historical evidence, the openEMS patch tutorial f
 Sources were reviewed on **2026-11-15**. Upstream documentation and APIs can change: pin versions/commits for actual experiments. Direct retrieval of several hosted documentation sites was unavailable during preparation; core tool capabilities were cross-checked against upstream project documentation/source, and the NASA report was located through its indexed primary-source link. This is not a claim that every external URL was live-tested or every external example executed.
 
 External tools retain their own licenses and prerequisites; this repository's [MIT license](LICENSE) does not override them. The link collection is curated for this workflow, not an exhaustive bibliography or endorsement of a turnkey autonomous hardware-design product.
+
+## 10. Repository PDF synthesis and investigation approach
+
+The two repository PDFs are useful as research inputs, not as evidence that this repository has implemented or independently reproduced their methods:
+
+- [AI-Driven RF device and Antenna Design.pdf](<AI-Driven RF device and Antenna Design.pdf>) describes antenna-design criteria and iterative design workflows. Its Figure 2 groups requirements into transmission, radiation-pattern, mechanical, reflection, and isolation indicators, then shows topology selection, full-wave simulation, parameter adjustment, and a requirements check before a final design.
+- [AI Based Antenna Design NGN.pdf](<AI Based Antenna Design NGN.pdf>) proposes a data-to-optimization pipeline: define a topology-specific design space, generate full-wave simulation data, train a surrogate, generate inverse-design candidates, and use a hybrid optimizer with periodic full-wave checks. Its discussion also notes topology-specific model limitations and possible generative-model mode collapse.
+
+### Translate the PDF workflows into implementation decisions
+
+| Investigation stage | Consolidated information from the PDFs | Application to this repository |
+| --- | --- | --- |
+| Define what “meets requirements” means | Figure 2 in *AI-Driven RF device and Antenna Design* extends beyond matching: transmission behavior, radiation pattern, mechanical/environmental constraints, reflection, and coupling/isolation may all matter. | Extend the approved requirement contract only with metrics relevant to the intended antenna and platform. Give each metric units, operating range, limit, provenance, and a verification method; resolve overlaps such as reflection coefficient, S11, and VSWR before optimization. |
+| Select a design family | The workflow diagram puts antenna-type/structure selection before parameter tuning; the dissertation treats different antenna topologies as distinct design spaces. | Keep an RF engineer responsible for selecting and approving the initial topology and parameterized template. Treat automatic topology recommendation as a separate experiment, not a prerequisite for the first implementation. |
+| Establish simulation evidence | The dissertation describes sampling bounded geometry and evaluating it with full-wave EM simulation before training its surrogate. Its example uses Latin hypercube sampling and separate topology datasets. | Start with one reviewed topology and a deterministic, recorded simulation campaign. Store the resolved geometry, materials, solver setup, raw outputs, and failures with every sample. Choose sampling and dataset size from measured cost and coverage; do not assume the dissertation’s sample count transfers to this problem. |
+| Train and use a surrogate | Both PDFs describe ML as a way to accelerate repeated performance evaluations, with full-wave simulation retained for checking or refining candidates. | Evaluate the surrogate on held-out designs and near constraint boundaries. Use it to prioritize bounded candidates, not to certify feasibility; send finalists to the solver and add informative simulation results when model errors matter. |
+| Consider inverse design and advanced optimization | The dissertation proposes a conditional GAN to seed particle-swarm optimization and periodic HFSS verification. The other PDF’s pixelated-filter examples use a different RF design problem. | First compare a simple search baseline with a surrogate-assisted optimizer under the same solver-call budget. Explore generative initialization only if it improves that comparison and generated geometries pass explicit validity checks. Keep pixelated filters, RF circuits, scattering inversion, and live system adjustment outside the initial antenna-design scope. |
+| Verify and report the result | The antenna-design diagram ends its adjustment loop only when requirements are met; the dissertation describes fabrication and measurement as a further validation stage. | Separate optimizer predictions, full-wave results, and physical measurements in reports. Re-run selected designs with the approved verification settings; require appropriate measurement evidence before making hardware-performance claims. |
+
+### Diagram-derived investigation loop
+
+The following adapts the antenna-design loop in Figure 2 of *AI-Driven RF device and Antenna Design* and the surrogate/optimizer stages in §§3.1–3.4 of *AI Based Antenna Design NGN*. The review and evidence gates make explicit what an implementation must establish:
+
+```text
+Approved requirements
+(transmission, radiation, mechanical/environmental,
+ reflection, coupling/isolation as applicable)
+                  |
+       Engineer selects topology
+                  |
+   Parameter bounds + solver setup reviewed
+                  |
+       Full-wave simulation campaign
+                  |
+      Versioned data and quality checks
+                  |
+        Surrogate evaluation gate
+        /                    \
+ insufficient evidence       validated for stated domain
+       |                              |
+ collect targeted data       bounded candidate search
+       |                              |
+       +---- retrain/recheck <- geometry and constraint checks
+                                      |
+                         Full-wave finalist verification
+                                      |
+                       Requirements met and independently rerun?
+                              /                 \
+                            No                   Yes
+                            |                     |
+                  revise candidate/model    Engineer review
+                                                  |
+                                  optional fabrication and measurement
+```
+
+### Evidence limits and follow-up
+
+The dissertation reports results including a 50,000-sample dataset, surrogate error below 3.5%, reduced HFSS evaluations, and 12 measured prototypes. These are claims made by that document, not results reproduced here: the repository does not include its dataset, implementation, solver projects, or raw measurement records. Use them to identify candidate techniques and questions, not as acceptance thresholds or expected outcomes. In particular, test whether a surrogate generalizes within the chosen topology before considering transfer to another family, and evaluate any GAN for geometric validity and diversity before using it to initialize search.
+
+The RF-design PDF also discusses pixelated filters, RF circuits, electromagnetic inversion, and dynamic adjustment. Those examples suggest future research directions but do not validate an antenna-design pipeline; they need distinct requirements, data, and verification plans before being brought into scope.
