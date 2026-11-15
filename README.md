@@ -417,3 +417,8 @@ Approved requirements
 The dissertation reports results including a 50,000-sample dataset, surrogate error below 3.5%, reduced HFSS evaluations, and 12 measured prototypes. These are claims made by that document, not results reproduced here: the repository does not include its dataset, implementation, solver projects, or raw measurement records. Use them to identify candidate techniques and questions, not as acceptance thresholds or expected outcomes. In particular, test whether a surrogate generalizes within the chosen topology before considering transfer to another family, and evaluate any GAN for geometric validity and diversity before using it to initialize search.
 
 The RF-design PDF also discusses pixelated filters, RF circuits, electromagnetic inversion, and dynamic adjustment. Those examples suggest future research directions but do not validate an antenna-design pipeline; they need distinct requirements, data, and verification plans before being brought into scope.
+
+### Disclaimer
+The depicted informations inside md file are of my own content modified with support of AI tools and copilot sessions.
+
+
