@@ -15,7 +15,7 @@ There are more possible areas of investigation include, but are not limited to b
 * (5) Identify outlier devices and unusual production trends. Compare conventional statistical methods with modern AI techniques or methods.
 * (6) Root Cause Analysis Support Correlate RF test results with manufacturing information, component lots, test stations, environmental conditions, and other available factors.
 * (7) Explore how AI can assist engineers in narrowing down potential root causes of fialures. To study and investigate how to reduce return rate from sites as well via AI based approach.
-* (8) Study Special Issue on Machine Learning in Antenna Design, Modeling, and Measurements
+* (8) Study Special Issue on Machine Learning in Antenna Design, Modeling, and Measurements, in broad open challenges for ML focusing on applications to antennas, radar, scattering, and propagation problems. [Follow Document](https://ieeexplore.ieee.org/document/9843844)
 * (9) Develop explainable analysis methods to improve engineering confidence level.
 * (10) Production Quality Risk Prediction Investigate predictive models for identifying potential quality risks before products leave manufacturing.
 * (11) Study what are early indicators of future failures or yield degradation. Evaluate model performance using historical production data.
