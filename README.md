@@ -15,15 +15,16 @@ There are more possible areas of investigation include, but are not limited to b
 * (5) Identify outlier devices and unusual production trends. Compare conventional statistical methods with modern AI techniques or methods.
 * (6) Root Cause Analysis Support Correlate RF test results with manufacturing information, component lots, test stations, environmental conditions, and other available factors.
 * (7) Explore how AI can assist engineers in narrowing down potential root causes of fialures. To study and investigate how to reduce return rate from sites as well via AI based approach.
-* (8) Develop explainable analysis methods to improve engineering confidence level.
-* (9) Production Quality Risk Prediction Investigate predictive models for identifying potential quality risks before products leave manufacturing.
-* (10) Study what are early indicators of future failures or yield degradation. Evaluate model performance using historical production data.
-* (11) Test Coverage Optimization Analyze relationships between different production test steps.
-* (12) Identify redundant measurements and opportunities to streamline testing.
-* (13) Evaluate potential reductions in test time while maintaining product quality and fault coverage.
-* (14) Data Visualization and Engineering Insights Develop intuitive visualizations and dashboards for production data exploration.
-* (15) Present AI-generated insights in a way that supports engineering decision-making. Investigate techniques for explainable AI within a production environment.
-* (16) A Proof-of-Concept Implementation: Build and evaluate a proof-of-concept AI solution using real production data. Demonstrate the ability to detect anomalies, provide engineering insights, and support production optimization activities. Also assess or figure out the deployment opportunities and future industrial applications.
+* (8) Study Special Issue on Machine Learning in Antenna Design, Modeling, and Measurements
+* (9) Develop explainable analysis methods to improve engineering confidence level.
+* (10) Production Quality Risk Prediction Investigate predictive models for identifying potential quality risks before products leave manufacturing.
+* (11) Study what are early indicators of future failures or yield degradation. Evaluate model performance using historical production data.
+* (12) Test Coverage Optimization Analyze relationships between different production test steps.
+* (13) Identify redundant measurements and opportunities to streamline testing.
+* (14) Evaluate potential reductions in test time while maintaining product quality and fault coverage.
+* (15) Data Visualization and Engineering Insights Develop intuitive visualizations and dashboards for production data exploration.
+* (16) Present AI-generated insights in a way that supports engineering decision-making. Investigate techniques for explainable AI within a production environment.
+* (17) A Proof-of-Concept Implementation need: Build and evaluate a proof-of-concept AI solution using real production dataset. Demonstrate the ability to detect anomalies, provide engineering insights, and support production optimization activities. Also assess or figure out the deployment opportunities and future industrial applications.
 
 **Repository status:** This is a research and implementation guide, not an implemented agent, solver integration, trained model, or validated antenna. The architectures, configurations, 
 project plans, and acceptance thresholds below are proposals unless explicitly attributed to an external source. No simulation results or performance improvements are claimed for this 
