@@ -1,10 +1,18 @@
-# AI-Driven Antenna Design
+# AI-Driven RF device and Antenna Design
 
 A software designer's guide to translating antenna requirements into reproducible electromagnetic (EM) simulations, optimization experiments, and evidence-backed hardware proposals.
+Again, as next step here we can think about **AI-Driven RF Production Test Intelligence** which will explore how AI and machine learning can transform large-scale RF production test 
+data into an actionable engineering insights. By correlating RF performance metrics with more factors, it aims to detect anomalies, support RCA, flag quality risks, and identify 
+opportunities to optimize test coverage and time - helping software engineers to resolve issues faster and get higher quality products to market. A lot of research works were already 
+conducted in different ways for this approach and plenty of good quality of materials are already available to understand, learn and apply for further advanced approach. 
 
-**Repository status:** This is a research and implementation guide, not an implemented agent, solver integration, trained model, or validated antenna. The architectures, configurations, project plans, and acceptance thresholds below are proposals unless explicitly attributed to an external source. No simulation results or performance improvements are claimed for this repository.
+**Repository status:** This is a research and implementation guide, not an implemented agent, solver integration, trained model, or validated antenna. The architectures, configurations, 
+project plans, and acceptance thresholds below are proposals unless explicitly attributed to an external source. No simulation results or performance improvements are claimed for this 
+repository here.
 
-**Central principle:** An LLM can interpret a specification and coordinate tools; it cannot establish that an antenna works by describing it. Numerical performance needs qualified EM simulation, and hardware performance needs measurement. There is no universally "perfect" agent or antenna: objectives, physical constraints, available evidence, and compute budgets determine the appropriate design.
+**Central principle:** An LLM can interpret a specification and coordinate tools; it cannot establish that an antenna works by describing it. Numerical performance needs qualified EM 
+simulation, and hardware performance needs measurement. There is no universally "perfect" agent or antenna: objectives, physical constraints, available evidence, and compute budgets 
+determine the appropriate design.
 
 ## 1. What is established, and what is proposed?
 
