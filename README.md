@@ -27,9 +27,11 @@ There are more possible areas of investigation include, but are not limited to b
 * (16) Present AI-generated insights in a way that supports engineering decision-making. Investigate techniques for explainable AI within a production environment.
 * (17) A Proof-of-Concept Implementation need: Build and evaluate a proof-of-concept AI solution using real production dataset. Demonstrate the ability to detect anomalies, provide engineering insights, and support production optimization activities. Also assess or figure out the deployment opportunities and future industrial applications.
 
-**Repository status:** This is a research and implementation guide, not an implemented agent, solver integration, trained model, or validated antenna. The architectures, configurations, 
-project plans, and acceptance thresholds below are proposals unless explicitly attributed to an external source. No simulation results or performance improvements are claimed for this 
-repository here.
+**Repository status:** This guide now includes an initial deterministic openEMS patch-study runner,
+configuration, and numerical-check tests (see section 4). It requires a separately installed native
+openEMS/CSXCAD stack. It is not an implemented agent, trained model, HFSS/Sionna integration, or
+hardware-validated antenna. Other architectures, project plans, and acceptance thresholds remain
+proposals unless explicitly attributed to an external source.
 
 **Central principle:** An LLM can interpret a specification and coordinate tools; it cannot establish that an antenna works by describing it. Numerical performance needs qualified EM 
 simulation, and hardware performance needs measurement. There is no universally "perfect" agent or antenna: objectives, physical constraints, available evidence, and compute budgets 
@@ -206,7 +208,112 @@ python -c "import CSXCAD; import openEMS; print('Bindings import successfully')"
 
 This checks imports only, not a successful simulation. The upstream example calculates S11 and input impedance and conditionally evaluates a far field at an identified resonance. Its plotted pattern is labeled **directivity**; do not relabel it realized gain. It is an educational example, not a hardware qualification procedure.
 
-**Nothing in this repository currently runs these steps automatically.** Add a solver adapter only after reproducing this baseline outside an agent loop.
+### Implemented starting point: openEMS patch study
+
+The practical flow starts here:
+
+```text
+Explicit patch/feed candidates
+    -> openEMS full-wave simulation
+    -> sampled-band matching and mesh checks
+    -> saved complex far fields
+    -> future Sionna RT pattern adapter and propagation study
+```
+
+`src/solvers/openems_patch.py` implements the first three stages and far-field export.
+There is no LLM or optimization dependency. Start with one candidate before launching a sweep.
+The default configuration uses the upstream tutorial's 32-by-40 mm PEC patch, 60-by-60 mm
+board, 1.524 mm synthetic substrate, and 50-ohm z-directed lumped feed at x=-6 mm.
+These are educational starting values, not inferred application requirements.
+
+**Environment:** Python 3.11 or newer; native openEMS v0.37.0 and compatible CSXCAD Python
+bindings are the initial target. Follow the official
+[installation requirements](https://docs.openems.de/en/latest/install/requirements.html)
+and [full-stack installation guide](https://docs.openems.de/en/latest/install/index.html).
+Choose an installation prefix and a Python environment you control; on a shared machine,
+coordinate native dependency installation with its administrator. The native solver, CSXCAD,
+and their Python bindings are separate from this repository's `requirements.txt`.
+Do not assume `pip install openEMS` installs the native stack.
+
+Run from the repository root, using the **same Python environment that contains the bindings**:
+
+```bash
+python -m pip install -r requirements.txt
+python -c "import CSXCAD, openEMS; print(CSXCAD.__version__, openEMS.__version__)"
+python -m src.solvers.openems_patch configs/openems_patch.json --output runs/baseline
+```
+
+Inspect `runs/baseline/mesh-0/model.xml` in AppCSXCAD if available, and review the solver
+log and resolved mesh before interpreting numerical results. The baseline uses six MUR
+absorbing boundaries, a 200-by-200-by-150 mm air box, a 2 GHz Gaussian excitation with
+1 GHz corner frequency, four substrate cells, and a maximum air-cell size based on
+20 cells per free-space wavelength at 3 GHz. The material uses **constant conductivity**
+computed from the configured loss tangent at 2.45 GHz; it is not constant loss tangent
+across the sweep. PEC and the simplified feed exclude realistic copper/connector losses.
+
+The default matching study samples 2.40-2.50 GHz at a maximum 1 MHz interval, including
+both endpoints, within a broader 1-3 GHz sweep. Every required field must be present in
+the JSON configuration; unknown fields and invalid geometry/resource settings are rejected.
+The geometry must remain inside the fixed board and air box.
+
+Create another explicit candidate, then run mesh verification in a **new** directory:
+
+```bash
+python -m src.solvers.openems_patch configs/openems_patch.json \
+  --patch-x-mm 31.5 --feed-x-mm -5.5 --output runs/candidate-01
+python -m src.solvers.openems_patch configs/openems_patch.json \
+  --patch-x-mm 31.5 --feed-x-mm -5.5 --verify --output runs/candidate-01-verification
+```
+
+`--verify` performs three progressively finer meshes (default 20/25/30 cells per wavelength
+and 4/5/6 substrate cells), followed by a clean finest-mesh rerun. It compares aligned
+S11 grids across every successive pair, including the rerun. Proposed study thresholds are
+at most 0.5 dB worst-band S11 change and 1% resonance-candidate shift. A missing, tied, or
+edge-of-sweep resonance minimum is unresolved, not passed. This verifies **matching stability
+only**; radiation convergence, boundary sensitivity, and measured validation remain separate.
+
+Each solver worker is limited to the configured wall time (default 600 seconds).
+FDTD uses the configured thread count (default one), with a 30,000-timestep cap and
+energy-decay criterion of 1e-6 (-60 dB). Unlike the upstream tutorial's -40 dB threshold,
+this stricter default reduces transient-truncation error in the broad sweep. The runner
+enables v0.37.0's exact end-criterion schedule rather than wall-clock-based energy checks.
+Far-field post-processing uses native default threading.
+Execution is sequential: default verification can consume up to four solver attempts and
+40 minutes. A timestep cap, abort, missing completion record, non-finite response, or
+failed subprocess prevents a successful run verdict. Timeouts/failures retain their logs
+and manifests; there are no automatic retries or directory overwrites.
+
+| Artifact | Contents |
+| --- | --- |
+| `study.json` | Execution summary, sampled-band matching outcome, and requested mesh comparisons. Execution success is not engineering acceptance. |
+| `mesh-N/config.json`, `solver_setup.json`, `model.xml` | Exact candidate, versions, units, conductivity, excitation, geometry, mesh lines, boundaries, and feed setup. |
+| `mesh-N/manifest.json`, `solver.log` | Status, timing, code/artifact hashes, convergence evidence, and native output/errors. |
+| `mesh-N/s11.csv`, `response.npz` | Numerical frequency grid, complex S11, impedance, and port power data (powers in NPZ). |
+| `mesh-N/far_field.npz` | Full-sphere, 10-degree samples at the material-reference frequency: complex `e_theta`/`e_phi`, angles in radians, radius in meters, radiated power, and maximum directivity. |
+
+Far-field fields retain the native solver amplitude/phase convention and are **not a
+ready-to-use Sionna antenna pattern**. A later adapter must verify coordinate/polarization
+bases, interpolation, phase convention, and power/gain normalization. It must not relabel
+directivity as realized gain; use the retained accepted/incident and radiated power where
+appropriate. The coarse angular grid and single frequency also need refinement for the
+intended propagation study. Sionna RT will consume antenna-pattern data, not solve this
+patch's geometry or S11.
+
+Inspect `sampled_band_matching_pass` separately from `verification`: finding no matching
+candidate is a valid outcome. The CLI exits nonzero on execution/configuration failures;
+matching or stability failures appear explicitly in the JSON report without being
+misrepresented as failed solver execution. Sampled matching is not proof of continuous-band
+compliance, radiation efficiency, regulatory compliance, or hardware readiness.
+
+Numerical/configuration tests do not require native bindings:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+Next, reproduce the baseline locally, review geometry and numerical quality, then collect
+a bounded patch/feed sweep using unique output directories. Only after mesh and boundary
+checks should a reviewed far-field adapter connect a selected antenna to Sionna RT.
 
 ## 5. Simulation projects, in increasing difficulty
 
@@ -333,7 +440,9 @@ Treat retrieved documents and solver logs as untrusted data, not instructions. R
 
 ## 8. Suggested implementation layout
 
-**Proposed future structure; these files and commands do not exist yet.**
+**Target structure.** The openEMS runner in `src/solvers/`, numerical checks in
+`src/verification/`, `configs/openems_patch.json`, and focused tests now exist.
+The other services below remain proposed.
 
 ```text
 configs/              # Approved specifications and campaign budgets
