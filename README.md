@@ -364,8 +364,8 @@ External tools retain their own licenses and prerequisites; this repository's [M
 
 The two repository PDFs are useful as research inputs, not as evidence that this repository has implemented or independently reproduced their methods:
 
-- [AI-Driven RF device and Antenna Design.pdf](<AI-Driven RF device and Antenna Design.pdf>) describes antenna-design criteria and iterative design workflows. Its Figure 2 groups requirements into transmission, radiation-pattern, mechanical, reflection, and isolation indicators, then shows topology selection, full-wave simulation, parameter adjustment, and a requirements check before a final design.
-- [AI Based Antenna Design NGN.pdf](<AI Based Antenna Design NGN.pdf>) proposes a data-to-optimization pipeline: define a topology-specific design space, generate full-wave simulation data, train a surrogate, generate inverse-design candidates, and use a hybrid optimizer with periodic full-wave checks. Its discussion also notes topology-specific model limitations and possible generative-model mode collapse.
+- [AI-Driven RF device and Antenna Design.pdf](<docs/research/AI-Driven RF device and Antenna Design.pdf>) describes antenna-design criteria and iterative design workflows. Its Figure 2 groups requirements into transmission, radiation-pattern, mechanical, reflection, and isolation indicators, then shows topology selection, full-wave simulation, parameter adjustment, and a requirements check before a final design.
+- [AI Based Antenna Design NGN.pdf](<docs/research/AI Based Antenna Design NGN.pdf>) proposes a data-to-optimization pipeline: define a topology-specific design space, generate full-wave simulation data, train a surrogate, generate inverse-design candidates, and use a hybrid optimizer with periodic full-wave checks. Its discussion also notes topology-specific model limitations and possible generative-model mode collapse.
 
 ### Translate the PDF workflows into implementation decisions
 
