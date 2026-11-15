@@ -489,7 +489,7 @@ The two repository PDFs are useful as research inputs, not as evidence that this
 
 ### Diagram-derived investigation loop
 
-The following adapts the antenna-design loop in Figure 2 of *AI-Driven RF device and Antenna Design* and the surrogate/optimizer stages in §§3.1–3.4 of *AI Based Antenna Design NGN*. The review and evidence gates make explicit what an implementation must establish:
+The following adapts the antenna-design loop in Figure 2 of *AI-Driven RF device and Antenna Design* and the surrogate/optimizer stages in section 3.1 – 3.4 of document *AI Based Antenna Design NGN*. The review and evidence gates make explicit what an implementation must establish:
 
 ```text
 Approved requirements
