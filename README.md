@@ -11,13 +11,13 @@ quality of product.
 There are more possible areas of investigation include, but are not limited to below: 
 * (1) A full Production Data Understanding and Feature Engineering Analyze **large-scale RF production test datasets**. Also, include __Hybrid beamforming (digital/analog/both) design__ related production test dataset.
 * (2) Identify key RF performance indicators(KPIs for good antenna design and combine/connect with Radio) and manufacturing parameters.
-* (3) Develop new methods for data cleansing, normalization, and feature extraction.
-* (4) AI-Based Anomaly Detection Investigate machine learning approaches for detecting abnormal test behavior.
+* (3) Develop new methods or APIs for data cleansing, normalization, and feature extraction.
+* (4) AI-Based Anomaly Detection: Investigate machine learning approaches for detecting abnormal test behavior. Define what is abnormal behaviour test startegy for verification.
 * (5) Identify outlier devices and unusual production trends. Compare conventional statistical methods with modern AI techniques or methods.
-* (6) Root Cause Analysis Support Correlate RF test results with manufacturing information, component lots, test stations, environmental conditions, and other available factors.
+* (6) Root Cause Analysis Support Correlate __RF test results__ with manufacturing information, component lots, test stations, physical or environmental conditions, and other available factors.
 * (7) Explore how AI can assist engineers in narrowing down potential root causes of fialures. To study and investigate how to reduce return rate from sites as well via AI based approach.
 * (8) Study Special Issue on Machine Learning in Antenna Design, Modeling, and Measurements, in broad open challenges for ML focusing on applications to antennas, radar, scattering, and propagation problems. [Follow Document](https://ieeexplore.ieee.org/document/9843844)
-* (9) Develop explainable analysis methods to improve engineering confidence level.
+* (9) Develop explainable analysis methods to improve engineering confidence level. Can we think about a model for standalone test installation of antenna configurations synch/pair with a used site remote Radio?
 * (10) Production Quality Risk Prediction Investigate predictive models for identifying potential quality risks before products leave manufacturing.
 * (11) Study what are early indicators of future failures or yield degradation. Evaluate model performance using historical production data.
 * (12) Test Coverage Optimization Analyze relationships between different production test steps.
