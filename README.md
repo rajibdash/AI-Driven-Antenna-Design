@@ -24,9 +24,9 @@ There are more possible areas of investigation include, but are not limited to b
 * (11) Study what are early indicators of future failures or yield degradation. Evaluate model performance using historical production data.
 * (12) Test Coverage Optimization Analyze relationships between different production test steps.
 * (13) Identify redundant measurements and opportunities to streamline testing.
-* (14) Evaluate potential reductions in test time while maintaining product quality and fault coverage.
+* (14) Evaluate potential reductions in test execution time while maintaining product quality and fault coverage.
 * (15) Data Visualization and Engineering Insights Develop intuitive visualizations and dashboards for production data exploration.
-* (16) Present AI-generated insights in a way that supports engineering decision-making. Investigate techniques for explainable AI within a production environment.
+* (16) Figure out AI-generated insights in a way that supports engineering decision-making. Investigate techniques for explainable AI within a production environment.
 * (17) A Proof-of-Concept Implementation need: Build and evaluate a proof-of-concept AI solution using real production dataset. Demonstrate the ability to detect anomalies, provide engineering insights, and support production optimization activities. Also assess or figure out the deployment opportunities and future industrial applications.
 
 **Repository status:** This guide now includes an initial deterministic openEMS patch-study runner,
